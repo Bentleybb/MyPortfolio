@@ -1,0 +1,127 @@
+/*html{
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+#intro {
+height: calc(100vh -4em);
+width: 100vw;
+max-width: 75em;
+margin: 0 auto;
+overflow: hidden;
+position: relative;
+font-size:x-large;
+}
+
+.bg{
+    position:absolute;
+    top: -4em;
+    right: 0;
+    z-index: -1;
+    object-fit: cover;
+    height: 100vh;
+}
+
+.introContent {
+    height: 100vh;
+    width: 100vw;
+    padding: 2em;
+    font-size: 3em;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hello {
+    font-size: 1.75rem;
+    font-weight:100;
+}
+
+.introName {
+    color: yellow;
+}
+
+.introPara {
+    font-size: medium;
+    font-weight: 100;
+}
+
+.btn {
+    background: white;
+    margin: 1rem 0;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 2rem;
+}
+
+.btnImg{
+    
+}
+*/
+
+#works {
+    margin: 0 auto;
+    min-height: calc(100vh - 4rem);
+    width: 100vw;
+    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align:center;
+    padding:0 1rem;
+  }
+  
+  
+  .worksTitle{
+    margin: 1rem 0;
+      font-size: 3rem;
+      font-weight: 600;
+      padding-top: 3rem;
+      margin-bottom: 1.5rem;
+  }
+  
+  .worksDesc {
+    font-weight: 300;
+    font-size: 2rem;
+  }
+  .worksImgs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    width: 300px;
+    
+  }
+  
+  .worksImg{
+    object-fit: cover;
+    height: 20rem;
+    margin: auto;
+    border-radius: 1rem;
+    align-items:center;
+    justify-content:center;
+    vertical-align:baseline;
+  }
+  .workBtn {
+    padding: 0.5rem 2.5rem;
+    border: none;
+    border-radius: 2rem;
+    background: white;
+    font-size: 1rem;
+  }
+  
+  label{
+    font-size:30px;
+  }
+  
+  button{
+    font-size:30px;
+  }
+  
+  @media screen and (max-width:585px){
+    .worksImg{
+    height: 50vw;
+  }
+  }

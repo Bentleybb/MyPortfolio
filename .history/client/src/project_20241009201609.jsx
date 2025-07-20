@@ -1,0 +1,67 @@
+import project1 from '../src/assets/project1.png';
+import project2 from '../src/assets/project2.jpg';
+import project3 from '../src/assets/project3.jpg';
+import project4 from '../src/assets/project4.jpg';
+import project5 from '../src/assets/project5.jpg';
+import project6 from '../src/assets/project6.jpg';
+import { Link } from 'react-router-dom';
+import '../src/index.css'
+import '../src/project.css'
+import project from '../src/assets/project.jfif';
+export default function Project() {
+     return <>
+     
+     <section id="works">
+         
+          <h2 className="worksTitle">My Projects</h2>
+          <div>
+    <img src={contact4} alt="contact1" className="worksImg"  width="1500px" height="80px"/><br/><br/>
+    </div>
+          <span className="worksDesc">I take pride in paying attention to the smallest details and making sure my work is pixel perfect/ 
+          I am excited to bring my skills and experience to help businesses achieve their goals and create a strong online presence.</span> 
+          <div className="worksImgs">
+                   <img src={project1} alt="project1" className="worksImg" /><br/><br/>
+                   <img src={project2} alt="project2" className="worksImg" /><br/><br/>
+                   <img src={project3} alt="project3" className="worksImg" /><br/><br/>
+                   <img src={project4} alt="project4" className="worksImg" /><br/><br/>
+                   <img src={project5} alt="project5" className="worksImg" /><br/><br/>
+                   <img src={project6} alt="project6" className="worksImg" /><br/><br/>
+                  
+               
+               </div>
+               <form id="ppy">
+
+                    <label htmlFor="myTitle"> *Title: </label>
+				<input type="text" id="myTitle" name="myTitle" required="required" autoFocus /> <br /> <br />
+				
+			
+				<label htmlFor="myFName"> *First Name: </label>
+				<input type="text" id="myFName" name="myFName" required="required" autoFocus /> <br /> <br />
+				
+				<label htmlFor="myLName"> *Last Name: </label>
+				<input type="text" id="myLName" name="myLName" required="required" /> <br /> <br />
+				
+				
+				<label htmlFor="myEmail"> *Email: </label>
+				<input type="email" id="myEmail" name="myEmail" required="required" /> <br /> <br />
+				
+                    <label htmlFor="myDate"> *Completion Date: </label>
+				<input type="date" id="myDate" name="myDate" required="required" /> <br /> <br />
+				
+                    <label htmlFor="myDescription"> *Description: </label>
+				<input type="text" id="myDescription" name="myDescription" required="required" /> <br /> <br />
+
+				<input type="submit" className="submit" value="Submit" /> <br />
+					
+		
+		</form> 
+         <br/>
+          <button className="workBtn">See More</button>
+                  
+                  
+     </section>
+    
+
+     </>
+    }
+    

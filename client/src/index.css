@@ -1,0 +1,303 @@
+header {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #004d40;
+  background-color: #b2dfdb;
+  background-image: url("./src/assets/logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left center;
+  margin-left: 180px; 
+  margin-top: 0;
+  padding-bottom: 1em;
+  min-height: 120px;
+  height: auto;
+}
+
+header h1 {
+  padding-left: 150px;
+  padding-top: 40px;
+  margin: 0;
+}
+
+header span {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 95%;
+  color: #ffffff;
+  padding-left: 32%;
+}
+
+nav {
+  background-color: #004d40; /* Dark teal color */
+  width: 180px; 
+  height: 180vh; 
+  position: fixed; 
+  font-weight: bold;
+  top: 0;
+  left: 0;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the left */
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 10px 0 0 0; 
+  padding: 0;
+}
+
+nav li {
+  padding: 0.5em;
+  display: block;
+  margin-bottom: 0.1em;
+}
+
+nav a {
+  text-decoration: none;
+  display: block;
+}
+
+nav a:link {
+  color: #ffffff;
+}
+nav a:visited {
+  color: #eaeaea;
+}
+nav a:hover {
+  color: #ed9508;
+}
+
+
+footer {
+  font-size: .5em;
+  text-align: left;
+  padding: 5px;
+  margin-left: 180px;
+  clear: both;
+  background-color: #004d40;
+  color: #ffffff;
+}
+
+footer a {
+  color: #ffffff;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* src/pages/styles.css */
+
+
+.container {
+  max-width: 1500px;
+  margin: 20px auto;
+  margin-left: 170px; /* Adjusted to account for the fixed nav width */
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.about-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; /* Space between image and text */
+  margin-top: 20px;
+}
+
+.about-image {
+  width: 40%; /* Adjust as needed */
+  height: auto; /* Keep aspect ratio */
+  border: 2px solid #00796b;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+  flex: 1; /* Take remaining space */
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #004d40;
+  text-align: justify;
+  padding: 10px;
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+h2{
+    color: #00796b; /* Medium teal */
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px;
+    text-align: center;
+}
+
+h3{
+    color: #00796b; /* Medium teal */
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px;
+    text-align: center;
+}
+
+p {
+    color: #555555;
+    line-height: 1.6;
+  }
+
+.contact-header {
+    font-size: .8em;
+    line-height: .1;
+    color: #004d40; /* Dark teal */
+    margin: 5px 0 20px;
+    text-align: left;
+    padding: 5px 20px;
+    background-color: #e0f7fa; /* Light cyan background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.service-list2 {
+    display: flex; /* Enables flexbox */
+    flex-direction: row; /* Aligns items in a row */
+    justify-content: space-around; /* Adds space between items */
+    gap: 20px; /* Adds consistent spacing between boxes */
+    margin-top: 20px; /* Adds spacing above the row */
+}
+
+.service-list2 article {
+    flex: 1; /* Ensures all boxes are the same width */
+    max-width: 300px; /* Optional: Limit the width of each box */
+    padding: 20px;
+    border: 1px solid #ddd; /* Adds a subtle border around each box */
+    border-radius: 8px; /* Rounds the corners of each box */
+    background-color: #f9f9f9; /* Light background for contrast */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow for depth */
+    display: flex; /* Enable flexbox for individual boxes */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Space between content and footer */
+    text-align: center; /* Centers content inside each box */
+}
+
+.service-image3 {
+    width: 100%; /* Ensures the image fills the box */
+    height: auto; /* Maintains aspect ratio */
+    border: 2px solid #00796b; /* Medium teal */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow */
+    margin-bottom: 10px; /* Adds space below the image */
+}
+
+.service-description {
+    margin: 15px 0; /* Adds spacing around the text */
+    flex-grow: 1; /* Pushes the footer to the bottom */
+}
+
+.service-footer {
+    display: flex;
+    justify-content: space-between; /* Space between text and button */
+    align-items: center; /* Vertically center items */
+    margin-top: 10px;
+}
+
+.service-link {
+    display: inline-block; /* Makes the link button-like */
+    padding: 10px 15px;
+    background-color: #00796b; /* Button color */
+    color: white;
+    text-decoration: none; /* Removes underline */
+    border-radius: 5px; /* Rounds the button corners */
+}
+
+.service-link:hover {
+    background-color: #004d40; /* Dark teal on hover */
+    border-color: #00796b; /* Medium teal border on hover */
+}
+
+
+form {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f4f3; /* Light mint green background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+fieldset {
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 6px;
+}
+
+fieldset{
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #b2dfdb;
+    padding: 6px;
+}
+
+textarea {
+    width: 100%;
+    height: 60px;
+    resize: vertical;
+    margin: 10px 0;
+}
+
+legend {
+    font-size: 1.2em;
+    color: #004d40; /* Dark teal */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #004d40; /* Dark teal */
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button[type="submit"],
+button[type="reset"] {
+    padding: 10px 30px;
+    background-color: #00796b; /* Medium teal */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 25px; /* Rounded corners for button shape */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button[type="submit"]:hover,
+button[type="reset"]:hover {
+    background-color: #004d40; /* Dark teal on hover */
+}
+
+.nav button {
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+  font-weight: bold;
+}
+
+nav button:hover {
+  color: #d3dbeb;
+  text-decoration: underline;
+}
