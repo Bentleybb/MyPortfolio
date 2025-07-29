@@ -47,12 +47,13 @@ export default function AllContacts() {
           <Typography variant="body1">
             <strong>Phone:</strong> {contact.phone}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" component="div">
             <strong>Services:</strong>{" "}
             {contact.services?.map((service, i) => (
               <Chip key={i} label={service} sx={{ mr: 1, mb: 0.5 }} />
             ))}
           </Typography>
+
           <Typography variant="body1">
             <strong>Message:</strong> {contact.message}
           </Typography>

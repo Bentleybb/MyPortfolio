@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
 import { Link as RouterLink } from 'react-router-dom'
-import Link from '@material-ui/core/Link'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
-import Avatar from '@material-ui/core/Avatar'
-import ArrowForward from '@material-ui/icons/ArrowForward'
+import { makeStyles } from '@mui/styles';
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Typography,
+  Paper,
+  ListItemSecondaryAction,  // ✅ Add this
+  IconButton   
+} from '@mui/material';
+import ArrowForward from '@mui/icons-material/ArrowForward';
 import { list } from './api-user.js'
 import auth from '../lib/auth-helper.js'
+import ListItemButton from '@mui/material/ListItemButton';
 
 const useStyles = makeStyles(theme => ({
   title: { margin: '16px' },
@@ -59,21 +61,22 @@ export default function Users() {
       </Typography>
       <List dense>
         {users.map((item, i) => (
-          <Link component={RouterLink} to={`/user/${item._id}`} key={i}>
-            <ListItem button>
+          <ListItem key={i} disablePadding>
+            <ListItemButton component={RouterLink} to={`/user/${item._id}`}>
               <ListItemAvatar>
                 <Avatar>{item.name.charAt(0)}</Avatar>
               </ListItemAvatar>
               <ListItemText primary={item.name} />
               <ListItemSecondaryAction>
-                <IconButton>
+                <IconButton edge="end">
                   <ArrowForward />
                 </IconButton>
               </ListItemSecondaryAction>
-            </ListItem>
-          </Link>
+            </ListItemButton>
+          </ListItem>
         ))}
       </List>
+
     </Paper>
   )
 }
