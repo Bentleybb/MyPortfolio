@@ -1,54 +1,31 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, TextField, CardActions, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { create } from './api-user';
-import auth from '../lib/auth-helper.js';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 400,
-    margin: '0 auto',
-    marginTop: theme.spacing(3),
-    padding: theme.spacing(2),
-    textAlign: 'center',
-  },
-  textField: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  error: {
-    color: 'red',
-  },
-  submit: {
-    margin: '0 auto',
-    marginBottom: theme.spacing(2),
-  },
-  title: {
-    fontSize: 18,
-  },
-  
-  
-}));
-
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  CardActions,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import { signup } from "../lib/api-auth";;
 
 export default function Signup() {
-  const navigate = useNavigate();
-  const classes = useStyles();
-  const location = useLocation();
-  const signupMessage = location.state?.message;
-  const [values, setValues] = useState({ 
-    name: '',
-    password: '', 
-    email: '',
+  const [values, setValues] = useState({
+    name: "",
+    password: "",
+    email: "",
+    error: "",
   });
 
   const [open, setOpen] = useState(false);
 
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
@@ -56,94 +33,112 @@ export default function Signup() {
     setOpen(false);
   };
 
-  const clickSubmit = () => { 
+  const clickSubmit = () => {
     const user = {
       name: values.name || undefined,
-      email: values.email || undefined, 
+      email: values.email || undefined,
       password: values.password || undefined,
     };
-
-    create(user).then((data) => { 
-      if (data.error) {
-        setValues({ ...values, error: data.error });
-      } else {
-        auth.authenticate(data, () => {
-          navigate('/');
-        });
-      }
-    });
+  
+    signup(user)
+      .then((data) => {
+        if (!data) {
+          setValues({ ...values, error: "No response from server." });
+        } else if (data.error) {
+          setValues({ ...values, error: data.error });
+        } else {
+          setValues({ ...values, error: "" });
+          setOpen(true); // Show success dialog
+        }
+      })
+      .catch((err) => {
+        console.error("Signup error:", err);
+        setValues({ ...values, error: "Signup failed. Please try again." });
+      });
   };
-
-  Signup.propTypes = {
-    open: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired,
-  };
+  
 
   return (
     <div>
-      <Card className={classes.card}> 
+      <Card
+        sx={{
+          maxWidth: 400,
+          margin: "0 auto",
+          mt: 3,
+          p: 2,
+          textAlign: "center",
+        }}
+      >
         <CardContent>
-          <Typography variant="h6" className={classes.title}> 
+          <Typography variant="h6" sx={{ fontSize: 18 }}>
             Sign Up
           </Typography>
-          {signupMessage && (
-            <Typography style={{ color: 'green', marginBottom: '1em' }}>
-              {signupMessage}
-            </Typography>
-          )}
 
-                  
           <TextField
             id="name"
             label="Name"
-            className={classes.textField}
+            sx={{ width: "100%", mb: 2 }}
             value={values.name}
-            onChange={handleChange('name')}
+            onChange={handleChange("name")}
             margin="normal"
           />
           <TextField
             id="email"
             label="Email"
-            className={classes.textField}
+            sx={{ width: "100%", mb: 2 }}
             value={values.email}
-            onChange={handleChange('email')}
+            onChange={handleChange("email")}
             margin="normal"
           />
           <TextField
             id="password"
             label="Password"
-            className={classes.textField}
+            sx={{ width: "100%", mb: 2 }}
             value={values.password}
-            onChange={handleChange('password')}
+            onChange={handleChange("password")}
             type="password"
             margin="normal"
           />
-        </CardContent> 
+
+          {values.error && (
+            <Typography color="error" sx={{ mt: 1 }}>
+              {values.error}
+            </Typography>
+          )}
+        </CardContent>
+
         <CardActions>
-          <Button color="primary" variant="contained" onClick={clickSubmit} 
-            className={classes.submit}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={clickSubmit}
+            sx={{ margin: "0 auto", mb: 2 }}
+          >
             Submit
           </Button>
-        </CardActions> 
+        </CardActions>
       </Card>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Account</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            New account successfully created. 
+            New account successfully created.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Link to="/Signin">
-            <Button color="primary" autoFocus variant="contained" onClick={handleClose}>
-              Sign In 
+          <Link to="/signin">
+            <Button
+              color="primary"
+              autoFocus
+              variant="contained"
+              onClick={handleClose}
+            >
+              Sign In
             </Button>
           </Link>
-        </DialogActions> 
+        </DialogActions>
       </Dialog>
     </div>
   );
 }
-
-

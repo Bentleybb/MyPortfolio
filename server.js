@@ -2,8 +2,9 @@ import config from './config/config.js'
 import app from './server/express.js'
 import mongoose from 'mongoose' 
 import contactRoutes from './server/routes/contact.routes.js';
-import projectRoutes from './server/routes/project.routes.js';
-import educationRoutes from './server/routes/education.routes.js';
+import authRoutes from './server/routes/auth.routes.js';
+import userRoutes from './server/routes/user.routes.js';
+import cors from 'cors';
 mongoose.Promise = global.Promise
 mongoose.connect(config.mongoUri, {
 //useNewUrlParser: true,
@@ -20,9 +21,15 @@ throw new Error(`unable to connect to database: ${config.mongoUri}`)
 app.get("/", (req, res) => {
 res.json({ message: "Welcome to My Portfolio application." });
 });
-app.use('/api/contacts', contactRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/qualifications', educationRoutes);
+app.use('/', contactRoutes);
+app.use('/', authRoutes);    
+app.use('/', userRoutes); 
+
+
+app.use(cors({
+  origin: 'http://localhost:5173', // allow frontend origin
+  credentials: true               // if using cookies
+}));
 app.listen(config.port, (err) => { 
 if (err) {
 console.log(err) 

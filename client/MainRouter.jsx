@@ -13,6 +13,7 @@ import Profile from './user/Profile.jsx'
 import PrivateRoute from './lib/PrivateRoute.jsx'
 import EditProfile from './user/EditProfile.jsx'
 import Layout from './components/layout'
+import AllContacts from './user/AllContacts.jsx'; 
 import './src/index.css';
 
 
@@ -35,6 +36,14 @@ function MainRouter() {
             } />    
           <Route path="user/edit/:userId" element={<EditProfile />} />
           <Route path="user/:userId" element={<Profile />} />
+          <Route
+            path="admin/contacts"
+            element={
+              <RequireAdmin>
+                <AllContacts />
+              </RequireAdmin>
+            }
+          />
        </Route>
       </Routes>
     </div>

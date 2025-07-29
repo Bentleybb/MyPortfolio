@@ -1,3 +1,4 @@
+import auth from "../lib/auth-helper.js";
 const create = async (user) => { 
   try {
     let response = await fetch('/api/contacts/', {
@@ -15,16 +16,31 @@ const create = async (user) => {
   }
   }
   const list = async (signal) => { 
-  try {
-  let response = await fetch('/api/contacts/', { 
-  method: 'GET',
-  signal: signal, 
-  })
-  return await response.json() 
-  } catch(err) {
-  console.log(err) 
-  }
-  }
+    const jwt = auth.isAuthenticated(); 
+  
+    try {
+      let response = await fetch('/api/contacts/', { 
+        method: 'GET',
+        signal: signal, 
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + jwt.token  
+        }
+      });
+  
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Error ${response.status}: ${errText}`);
+      }
+  
+      return await response.json(); 
+    } catch(err) {
+      console.error("API contact list fetch error:", err);
+      return { error: err.message || "Unknown error" };
+    }
+  };
+  
   const read = async (params, credentials, signal) => { 
   try {
   let response = await fetch('/api/contacts/' + params.userId, { 

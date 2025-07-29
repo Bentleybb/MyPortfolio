@@ -1,142 +1,27 @@
-/* eslint-disable react/prop-types */
-/*import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@mui/styles'
-import Paper from '@mui/material/Paper'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
-import ListItemText from '@mui/material/ListItemText'
-import Avatar from '@mui/material/Avatar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Edit from '@mui/material/icons/Edit'
-import Person from '@material-ui/icons/Person'
-import Divider from '@material-ui/core/Divider'
-import DeleteUser from './DeleteUser'
-import auth from '../lib/auth-helper.js'
-import {read} from './api-user.js'
-import {useLocation, Navigate, Link} from 'react-router-dom'
-import { useParams } from 'react-router-dom';
- const useStyles = makeStyles(theme => ({
- root: theme.mixins.gutters({
- maxWidth: 600,
- margin: 'auto',
- padding: theme.spacing(3),
- marginTop: theme.spacing(5)
- }),
- title: {
- marginTop: theme.spacing(3),
- color: theme.palette.protectedTitle
- }
-}))
-export default function Profile({ match }) {
- const location = useLocation();
- const classes = useStyles()
- const [user, setUser] = useState({})
- const [redirectToSignin, setRedirectToSignin] = useState(false)
- const jwt = auth.isAuthenticated()
- const { userId } = useParams();
- useEffect(() => {
- const abortController = new AbortController()
- const signal = abortController.signal
- read({
- userId: userId
- }, {t: jwt.token}, signal).then((data) => {
- if (data && data.error) {
- setRedirectToSignin(true)
- } else {
- setUser(data)
- }
- })
- return function cleanup(){
- abortController.abort()
- }
- }, [userId])
- 
- if (redirectToSignin) {
- return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
- 
- }
- if (auth.isAuthenticated()) {
- console.log( auth.isAuthenticated().user._id)
- console.log(user._id)
- }
- return (
-<Paper className={classes.root} elevation={4}>
-<Typography variant="h6" className={classes.title}>
- Profile
-</Typography>
-<List dense>
-<ListItem>
-<ListItemAvatar>
-<Avatar>
- <Person/>
-</Avatar>
-</ListItemAvatar>
-<ListItemText primary={user.name} secondary={user.email}/> {
-auth.isAuthenticated().user && auth.isAuthenticated().user._id == user._id &&
- (<ListItemSecondaryAction>
-<Link to={"/user/edit/" + user._id}>
-<IconButton aria-label="Edit" color="primary">
+import React, { useState, useEffect } from "react";
+import {
+  Paper,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  ListItemText,
+  Avatar,
+  IconButton,
+  Typography,
+  Divider,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import PersonIcon from "@mui/icons-material/Person";
+import DeleteUser from "./DeleteUser";
+import auth from "../lib/auth-helper.js";
+import { read } from "./api-user.js";
+import { useLocation, Navigate, Link, useParams } from "react-router-dom";
+import Button from "@mui/material/Button";
 
-<Edit/>
-</IconButton>
-</Link>
-<DeleteUser userId={user._id}/>
-</ListItemSecondaryAction>)
- }
-</ListItem>
-<Divider/>
-<ListItem>
-<ListItemText primary={"Joined: " + (
-new Date(user.created)).toDateString()}/>
- </ListItem>
- </List>
- </Paper>
- )
- }
-
-*/
-///////////////////////////////////////////////////////////////
-
-/*import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@mui/styles';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Edit from '@mui/icons-material/Edit';  // Updated import for Edit icon
-import Person from '@mui/icons-material/Person';  // Updated import for Person icon
-import Divider from '@mui/material/Divider';  // Updated import for Divider
-import DeleteUser from './DeleteUser';
-import auth from '../lib/auth-helper.js';
-import { read } from './api-user.js';
-import { useLocation, Navigate, Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 600,
-    margin: 'auto',
-    padding: theme.spacing(3),
-    marginTop: theme.spacing(5),
-  },
-  title: {
-    marginTop: theme.spacing(3),
-    color: theme.palette.protectedTitle,
-  },
-}));
-
-export default function Profile({ match }) {
+export default function Profile() {
   const location = useLocation();
-  const classes = useStyles();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [redirectToSignin, setRedirectToSignin] = useState(false);
   const jwt = auth.isAuthenticated();
   const { userId } = useParams();
@@ -144,160 +29,111 @@ export default function Profile({ match }) {
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-
-    read(
-      { userId: userId },
-      { t: jwt.token },
-      signal
-    ).then((data) => {
-      if (data && data.error) {
-        setRedirectToSignin(true);
-      } else {
-        setUser(data);
+  
+    const fetchUser = async () => {
+      try {
+        const data = await read({ userId }, { t: jwt.token }, signal);
+        if (data && data.error) {
+          setRedirectToSignin(true);
+        } else {
+          setUser(data);
+        }
+      } catch (err) {
+        if (err.name === "AbortError") {
+          // Expected: component unmounted before fetch completed
+          console.log("Fetch aborted");
+        } else {
+          console.error("Fetch user error:", err);
+        }
       }
-    });
-
-    return function cleanup() {
-      abortController.abort();
     };
+  
+    fetchUser();
+  
+    return () => abortController.abort();
   }, [userId]);
 
   if (redirectToSignin) {
-    return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
+    return (
+      <Navigate to="/signin" state={{ from: location.pathname }} replace />
+    );
   }
 
+  if (!user) {
+    return (
+      <Paper
+        elevation={4}
+        sx={{ maxWidth: 600, mx: "auto", mt: 5, p: 3 }}
+      >
+        <Typography variant="h6">Loading profile...</Typography>
+      </Paper>
+    );
+  }
+
+  const handleSignOut = () => {
+    auth.clearJWT(() => {
+      window.location = "/";
+    });
+  };
+
   return (
-    <Paper className={classes.root} elevation={4}>
-      <Typography variant="h6" className={classes.title}>
+    <Paper
+      elevation={4}
+      sx={{
+        maxWidth: 600,
+        mx: "auto",
+        mt: 5,
+        p: 3,
+      }}
+    >
+      <Typography variant="h6" sx={{ mt: 3, mb: 2, color: "text.primary" }}>
         Profile
       </Typography>
       <List dense>
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <Person />
+              <PersonIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={user.name} secondary={user.email} />
-          {auth.isAuthenticated().user && auth.isAuthenticated().user._id === user._id && (
-            <ListItemSecondaryAction>
-              <Link to={`/user/edit/${user._id}`}>
-                <IconButton aria-label="Edit" color="primary">
-                  <Edit />
-                </IconButton>
-              </Link>
-              <DeleteUser userId={user._id} />
-            </ListItemSecondaryAction>
-          )}
+          <ListItemText
+            primary={user?.name || "Name not available"}
+            secondary={user?.email || "Email not available"}
+          />
+
+          {auth.isAuthenticated().user &&
+            user &&
+            auth.isAuthenticated().user._id === user._id
+             && (
+              <ListItemSecondaryAction>
+                <Link to={`/user/edit/${user._id}`}>
+                  <IconButton aria-label="Edit" color="primary">
+                    <EditIcon />
+                  </IconButton>
+                </Link>
+                <DeleteUser userId={user._id} />
+              </ListItemSecondaryAction>
+            )}
         </ListItem>
         <Divider />
         <ListItem>
-          <ListItemText primary={`Joined: ${new Date(user.created).toDateString()}`} />
+          <ListItemText
+            primary={
+              user.created
+                ? `Joined: ${new Date(user.created).toDateString()}`
+                : "Loading..."
+            }
+          />
         </ListItem>
       </List>
+      <Button
+        variant="contained"
+        color="secondary"
+        sx={{ mt: 2 }}
+        onClick={handleSignOut}
+      >
+        Sign out
+      </Button>
     </Paper>
   );
 }
-*/
-
-/////////////////////////////////////////////////////////////
-
-/* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import ListItemText from '@material-ui/core/ListItemText'
-import Avatar from '@material-ui/core/Avatar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import Edit from '@material-ui/icons/Edit'
-import Person from '@material-ui/icons/Person'
-import Divider from '@material-ui/core/Divider'
-import DeleteUser from './DeleteUser'
-import auth from '../lib/auth-helper.js'
-import {read} from './api-user.js'
-import {useLocation, Navigate, Link} from 'react-router-dom'
-import { useParams } from 'react-router-dom';
- const useStyles = makeStyles(theme => ({
- root: theme.mixins.gutters({
- maxWidth: 600,
- margin: 'auto',
- padding: theme.spacing(3),
- marginTop: theme.spacing(5)
- }),
- title: {
- marginTop: theme.spacing(3),
- color: theme.palette.protectedTitle
- }
-}))
-export default function Profile({ match }) {
- const location = useLocation();
- const classes = useStyles()
- const [user, setUser] = useState({})
- const [redirectToSignin, setRedirectToSignin] = useState(false)
- const jwt = auth.isAuthenticated()
- const { userId } = useParams();
- useEffect(() => {
- const abortController = new AbortController()
- const signal = abortController.signal
- read({
- userId: userId
- }, {t: jwt.token}, signal).then((data) => {
- if (data && data.error) {
- setRedirectToSignin(true)
- } else {
- setUser(data)
- }
- })
- return function cleanup(){
- abortController.abort()
- }
- }, [userId])
- 
- if (redirectToSignin) {
- return <Navigate to="/signin" state={{ from: location.pathname }} replace />;
- 
- }
- if (auth.isAuthenticated()) {
- console.log( auth.isAuthenticated().user._id)
- console.log(user._id)
- }
- return (
-<Paper className={classes.root} elevation={4}>
-<Typography variant="h6" className={classes.title}>
- Profile
-</Typography>
-<List dense>
-<ListItem>
-<ListItemAvatar>
-<Avatar>
- <Person/>
-</Avatar>
-</ListItemAvatar>
-<ListItemText primary={user.name} secondary={user.email}/> {
-auth.isAuthenticated().user && auth.isAuthenticated().user._id == user._id &&
- (<ListItemSecondaryAction>
-<Link to={"/user/edit/" + user._id}>
-<IconButton aria-label="Edit" color="primary">
-
-<Edit/>
-</IconButton>
-</Link>
-<DeleteUser userId={user._id}/>
-</ListItemSecondaryAction>)
- }
-</ListItem>
-<Divider/>
-<ListItem>
-<ListItemText primary={"Joined: " + (
-new Date(user.created)).toDateString()}/>
- </ListItem>
- </List>
- </Paper>
- )
- }
-

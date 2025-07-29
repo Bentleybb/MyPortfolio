@@ -26,25 +26,27 @@ export default function Users() {
   const classes = useStyles()
 
   useEffect(() => {
-    const currentUser = auth.isAuthenticated().user
-
+    const currentUser = auth.isAuthenticated().user;
+  
     if (currentUser && currentUser.role === 'admin') {
-      setIsAdmin(true)
-
-      const abortController = new AbortController()
-      const signal = abortController.signal
-
-      list(signal).then((data) => {
+      setIsAdmin(true);
+  
+      const abortController = new AbortController();
+      const signal = abortController.signal;
+      const token = auth.isAuthenticated().token;
+  
+      list(signal, token).then((data) => {
         if (data && data.error) {
-          console.log(data.error)
+          console.log(data.error);
         } else {
-          setUsers(data)
+          setUsers(data);
         }
-      })
-
-      return () => abortController.abort()
+      });
+  
+      return () => abortController.abort();
     }
-  }, [])
+  }, []);
+  
 
   if (!auth.isAuthenticated() || auth.isAuthenticated().user.role !== 'admin') {
   return <Typography variant="h6">Access denied</Typography>
