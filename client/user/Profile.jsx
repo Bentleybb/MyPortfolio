@@ -17,7 +17,6 @@ import DeleteUser from "./DeleteUser";
 import auth from "../lib/auth-helper.js";
 import { read } from "./api-user.js";
 import { useLocation, Navigate, Link, useParams } from "react-router-dom";
-import Button from "@mui/material/Button";
 
 export default function Profile() {
   const location = useLocation();

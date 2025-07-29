@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton'; // Updated import
-import Button from '@mui/material/Button'; // Updated import
+import Button from '@mui/material'; // Updated import
 import DeleteIcon from '@mui/icons-material/Delete'; // Updated import
 import Dialog from '@mui/material/Dialog'; // Updated import
 import DialogActions from '@mui/material/DialogActions'; // Updated import
