@@ -1,1 +1,11 @@
-node_modules
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Frontend build (optional if you're not serving static)
+client/dist/
