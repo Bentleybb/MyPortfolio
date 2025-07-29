@@ -42,7 +42,7 @@ app.use(express.static(frontendPath));
 
 // React Router fallback: always serve index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
 // Start server
