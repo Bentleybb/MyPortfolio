@@ -1,27 +1,25 @@
-
+// client/vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-const { PORT = 3000} = process.env;
+
+const { PORT = 3000 } = process.env;
 
 export default defineConfig({
- plugins: [react()],
- server:{
-     proxy:{
-     '/api':{
-     target:`http://localhost:${PORT}`,
-     changeOrigin: true,
-     },
-
-     '/auth':{
-     target:`http://localhost:${PORT}`,
-     changeOrigin: true,
-     },
-     
-     },
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: `http://localhost:${PORT}`,
+        changeOrigin: true,
+      },
+      '/auth': {
+        target: `http://localhost:${PORT}`,
+        changeOrigin: true,
+      }
     },
-    
- build: {
+  },
+  build: {
     emptyOutDir: true,
-    outDir: "../dist/app",
- },
+    outDir: "dist", // ✅ keep this as "dist" inside client
+  },
 });

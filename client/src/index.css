@@ -2,7 +2,7 @@ header {
   font-family: Georgia, 'Times New Roman', Times, serif;
   color: #004d40;
   background-color: #b2dfdb;
-  background-image: url("./src/assets/logo.png");
+  background-image: url("/assets/logo.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: left center;
