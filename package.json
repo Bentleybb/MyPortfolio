@@ -9,8 +9,9 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "babel-loader": "^9.2.1",
+    "concurrently": "^9.2.0",
     "cypress": "^14.5.3",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.10"
   },
   "scripts": {
     "dev": "concurrently 'vite' \"nodemon server.js\"",
@@ -22,8 +23,8 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.1.0",
-    "@mui/icons-material": "5.11.0",
-    "@mui/material": "^6.1.6",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.14.18",
     "@mui/styled-engine-sc": "^6.1.6",
     "@mui/styles": "^6.1.6",
     "body-parser": "^1.20.3",
@@ -37,8 +38,8 @@
     "lodash": "^4.17.21",
     "method-override": "^3.0.0",
     "mongoose": "^8.16.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "styled-components": "^6.1.13",
     "vite": "^7.0.5"
   }
