@@ -2,11 +2,20 @@ import { signout } from "./api-auth.js";
 
 const auth = {
   isAuthenticated() {
-    if (typeof window == "undefined") return false;
-    if (localStorage.getItem("jwt"))
-      return JSON.parse(localStorage.getItem("jwt"));
-    else return false;
+    if (typeof window === "undefined") return false;
+  
+    const jwt = localStorage.getItem("jwt");
+  
+    if (!jwt || jwt === "undefined") return false; 
+  
+    try {
+      return JSON.parse(jwt);
+    } catch (err) {
+      console.error("Invalid JWT in localStorage", err);
+      return false;
+    }
   },
+  
 
   authenticate(jwt, cb) {
     if (typeof window !== "undefined")
