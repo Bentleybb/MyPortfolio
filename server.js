@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 // Setup __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PORT = process.env.PORT || config.port;
 
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
@@ -45,9 +46,9 @@ app.get('*', (req, res) => {
 });
 
 // Start server
-app.listen(config.port, (err) => {
+app.listen(PORT, (err) => {
   if (err) {
     console.error(err);
   }
-  console.info('🚀 Server started on port %s.', config.port);
+  console.info('🚀 Server started on port %s.', PORT);
 });
